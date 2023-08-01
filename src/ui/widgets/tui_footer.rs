@@ -1,14 +1,14 @@
-use tui::buffer::Buffer;
-use tui::layout::Rect;
-use tui::style::{Color, Style};
-use tui::text::{Line, Span};
-use tui::widgets::{Paragraph, Widget};
+use ratatui::buffer::Buffer;
+use ratatui::layout::Rect;
+use ratatui::style::{Color, Style};
+use ratatui::text::{Line, Span};
+use ratatui::widgets::{Paragraph, Widget};
 
 use crate::config::option::TabDisplayOption;
 use crate::fs::{JoshutoDirList, LinkType};
 use crate::util::format;
 use crate::util::unix;
-use crate::THEME_T;
+use crate::{THEME_T, TIMEZONE_STR};
 
 pub struct TuiFooter<'a> {
     dirlist: &'a JoshutoDirList,
@@ -73,7 +73,7 @@ impl<'a> Widget for TuiFooter<'a> {
                     Span::raw(format!("{}/{}", i + 1, self.dirlist.len())),
                     Span::raw("  "),
                     Span::raw(mtime_str),
-                    Span::raw(" UTC "),
+                    Span::raw(TIMEZONE_STR.as_str()),
                     Span::raw(size_str),
                     Span::raw("  "),
                     Span::styled(
